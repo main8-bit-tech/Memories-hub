@@ -1,1 +1,11 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/main8-bit-tech/Memories-hub/main/MemoriesHubMain.lua"))()
+
+if not game:IsLoaded() then game.Loaded:Wait() end
+
+local key = "1402"
+local correctKey = "1402"
+
+if key == correctKey then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/main8-bit-tech/Memories-hub/main/MemoriesHubMain.lua"))()
+else
+    game.Players.LocalPlayer:Kick("Chave inválida!")
+end
