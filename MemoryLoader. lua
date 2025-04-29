@@ -1,11 +1,11 @@
 
 if not game:IsLoaded() then game.Loaded:Wait() end
 
-local key = "1402"
-local correctKey = "1402"
+local expectedKey = "1402"
+local userKey = "1402" 
 
-if key == correctKey then
+if userKey == expectedKey then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/main8-bit-tech/Memories-hub/main/MemoriesHubMain.lua"))()
 else
-    game.Players.LocalPlayer:Kick("Chave inválida!")
+    game.Players.LocalPlayer:Kick("Chave inválida. Acesse o Discord do Memories Hub para obter uma key válida.")
 end
