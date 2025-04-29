@@ -101,7 +101,55 @@ EquipTab:AddButton({
 local SettingsTab = Window:MakeTab({
     Name = "Configurações",
     Icon = "rbxassetid://4483345998",
-    PremiumOnly = false
+    PremiumOnly = true
+
+        
+if not game:GetService("Players").LocalPlayer then
+    return
+end
+
+local allowedExecutors = {
+    ["Fluxus"] = true,
+    ["Delta"] = true,
+    ["KRNL"] = true,
+    ["Arceus X"] = true
+}
+
+if identifyexecutor and not allowedExecutors[identifyexecutor()] then
+    game.Players.LocalPlayer:Kick("Executor não permitido para Memories Hub.")
+    return
+end
+
+
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+
+local Window = Library.CreateLib("Memories Hub | Blox Fruits", "Midnight") -- Estilo da Janela
+
+
+local MainTab = Window:NewTab("Principal")
+local MainSection = MainTab:NewSection("Funções")
+
+MainSection:NewButton("Ativar Farm", "Iniciar farm automático", function()
+    print("Farm automático iniciado!")
+    
+end)
+
+MainSection:NewButton("Teleport Ilha", "Teleporta para a Ilha", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 10, 0) -- Exemplo de TP
+end)
+
+-- Aba de Configurações
+local SettingsTab = Window:NewTab("Configurações")
+local SettingsSection = SettingsTab:NewSection("Ajustes")
+
+SettingsSection:NewSlider("Delay de Ataque", "Ajuste o tempo de ataque (0.1s recomendado)", 1, 0, function(value)
+    _G.AttackDelay = value
+    print("Delay de ataque definido para:", value)
+end)
+
+SettingsSection:NewButton("Desconectar", "Sai do jogo", function()
+    game:Shutdown()
+end)
 })
 
 SettingsTab:AddLabel("Memories Hub Oficial")
