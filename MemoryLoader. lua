@@ -1,39 +1,46 @@
 if not game:IsLoaded() then game.Loaded:Wait() end
 
 local expectedKey = "1402"
-local player = game.Players.LocalPlayer
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
 
 
-local ScreenGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
-ScreenGui.Name = "MemoriesKeyGUI"
+repeat task.wait(2) until player:FindFirstChild("PlayerGui")
 
-local Frame = Instance.new("Frame", ScreenGui)
-Frame.Size = UDim2.new(0, 300, 0, 150)
-Frame.Position = UDim2.new(0.5, -150, 0.5, -75)
-Frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-Frame.BorderSizePixel = 0
 
-local TextBox = Instance.new("TextBox", Frame)
-TextBox.Size = UDim2.new(0.8, 0, 0.3, 0)
-TextBox.Position = UDim2.new(0.1, 0, 0.2, 0)
-TextBox.PlaceholderText = "Digite sua Key"
-TextBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-TextBox.TextColor3 = Color3.new(1, 1, 1)
-TextBox.TextScaled = true
+local gui = Instance.new("ScreenGui")
+gui.Name = "MemoriesKeyGui"
+gui.ResetOnSpawn = false
+gui.Parent = player:WaitForChild("PlayerGui")
 
-local Button = Instance.new("TextButton", Frame)
-Button.Size = UDim2.new(0.8, 0, 0.3, 0)
-Button.Position = UDim2.new(0.1, 0, 0.6, 0)
-Button.Text = "Verificar Key"
-Button.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-Button.TextColor3 = Color3.new(1, 1, 1)
-Button.TextScaled = true
+local frame = Instance.new("Frame", gui)
+frame.AnchorPoint = Vector2.new(0.5, 0.5)
+frame.Position = UDim2.new(0.5, 0, 0.5, 0)
+frame.Size = UDim2.new(0, 280, 0, 150)
+frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 
-Button.MouseButton1Click:Connect(function()
-    if TextBox.Text == expectedKey then
-        ScreenGui:Destroy()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/main8-bit-tech/Memories-hub/main/MemoriesHubMain.lua"))()
-    else
-        player:Kick("Key inválida. Acesse o Discord do Memories Hub.")
-    end
+local input = Instance.new("TextBox", frame)
+input.Size = UDim2.new(0.8, 0, 0.3, 0)
+input.Position = UDim2.new(0.1, 0, 0.2, 0)
+input.PlaceholderText = "Digite sua Key"
+input.Text = ""
+input.TextScaled = true
+input.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+input.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+local button = Instance.new("TextButton", frame)
+button.Size = UDim2.new(0.8, 0, 0.3, 0)
+button.Position = UDim2.new(0.1, 0, 0.6, 0)
+button.Text = "Verificar Key"
+button.TextScaled = true
+button.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+button.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+button.MouseButton1Click:Connect(function()
+	if input.Text == expectedKey then
+		gui:Destroy()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/main8-bit-tech/Memories-hub/main/MemoriesHubMain.lua"))()
+	else
+		player:Kick("Key inválida. Acesse o Discord do Memories Hub.")
+	end
 end)
