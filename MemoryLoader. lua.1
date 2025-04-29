@@ -1,0 +1,16 @@
+-- Proteção Anti-Leak Memories Hub
+if not game:GetService("Players").LocalPlayer then
+    return
+end
+
+local allowedExecutors = {
+    ["Fluxus"] = true,
+    ["Delta"] = true,
+    ["KRNL"] = true,
+    ["Arceus X"] = true
+}
+
+if identifyexecutor and not allowedExecutors[identifyexecutor()] then
+    game.Players.LocalPlayer:Kick("Executor não permitido para Memories Hub.")
+    return
+end
