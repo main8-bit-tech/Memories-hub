@@ -1,0 +1,19 @@
+-- Memories Hub Loader Oficial (Protegido)
+local key = "1402" -- Chave oficial do Memories Hub
+
+if not game:IsLoaded() then
+    game.Loaded:Wait()
+end
+
+local function validateKey()
+    local input = tostring(key)
+    local correctKey = "1402" -- Você pode mudar aqui no futuro
+
+    if input == correctKey then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/main8-bit-tech/Memories-hub/main/MemoriesHubMain.lua"))()
+    else
+        game.Players.LocalPlayer:Kick("Chave inválida! Pegue a Key no Discord oficial.")
+    end
+end
+
+validateKey()
