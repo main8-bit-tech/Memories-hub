@@ -103,6 +103,64 @@ local SettingsTab = Window:MakeTab({
     Icon = "rbxassetid://4483345998",
     PremiumOnly = true
 
+
+local AutoRaid = false
+FarmTab:Toggle("Auto Raid", false, function(Value)
+    AutoRaid = Value
+    while AutoRaid do task.wait(5)
+        local args = {
+            [1] = "Raids",
+            [2] = "Start",
+            [3] = "Microchip"
+        }
+        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+    end
+end)
+
+
+FarmTab:Button("Teleport Boss - Order", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-5413, 313, -2725)
+end)
+
+FarmTab:Button("Teleport Boss - Dough King", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2099, 448, -12501)
+end)
+
+        
+local AutoDojo = false
+FarmTab:Toggle("Auto Dojo Belt", false, function(Value)
+    AutoDojo = Value
+    while AutoDojo do task.wait(3)
+        pcall(function()
+            local dojoNPC = workspace:FindFirstChild("DojoNPC")
+            if dojoNPC and dojoNPC:FindFirstChild("HumanoidRootPart") then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = dojoNPC.HumanoidRootPart.CFrame
+                task.wait(1)
+                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("DojoChallenge")
+            end
+        end)
+    end
+end)
+
+
+local Settings = {
+    AttackDelay = 0.1,
+    AutoFarm = false
+}
+
+function SaveSettings()
+    writefile("MemoriesHub_Settings.json", game:GetService("HttpService"):JSONEncode(Settings))
+end
+
+function LoadSettings()
+    if isfile("MemoriesHub_Settings.json") then
+        local data = readfile("MemoriesHub_Settings.json")
+        Settings = game:GetService("HttpService"):JSONDecode(data)
+    end
+end
+
+LoadSettings()
+        
         
 if not game:GetService("Players").LocalPlayer then
     return
